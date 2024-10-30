@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 function ChatBot() {
   const [inputText, setInputText] = useState('');
@@ -16,8 +15,16 @@ function ChatBot() {
     setMessages((prevMessages) => [...prevMessages, userMessage]);
 
     try {
-      const response = await axios.post('/api/chatgpt', { message: inputText });
-      const botMessage = { text: response.data.reply, sender: 'bot' };
+      const response = await fetch('/api/assistant', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: inputText }),
+      });
+
+      const data = await response.json();
+      const botMessage = { text: data.reply, sender: 'bot' };
       setMessages((prevMessages) => [...prevMessages, botMessage]);
       setInputText('');
     } catch (error) {
