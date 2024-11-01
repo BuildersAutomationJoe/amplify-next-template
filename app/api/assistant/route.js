@@ -2,9 +2,13 @@ import { NextResponse } from 'next/server';
 import axios from 'axios';
 
 export async function POST(req) {
+  console.log("Received POST request in assistant API route");
+
   const { message } = await req.json();
+  console.log("Message received from client:", message);
 
   if (!message) {
+    console.error("No message provided");
     return NextResponse.json({ error: 'Message is required' }, { status: 400 });
   }
 
@@ -26,12 +30,14 @@ export async function POST(req) {
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, // Ensure this matches the exact environment variable name
+          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
         },
       }
     );
 
     const reply = openaiResponse.data.choices[0].text.trim();
+    console.log("Reply from OpenAI:", reply);
+
     return NextResponse.json({ reply });
   } catch (error) {
     console.error("Error communicating with OpenAI:", error.response ? error.response.data : error.message);
