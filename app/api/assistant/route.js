@@ -31,6 +31,7 @@ export async function POST(req) {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+
         },
       }
     );
@@ -40,7 +41,9 @@ export async function POST(req) {
 
     return NextResponse.json({ reply });
   } catch (error) {
+
     console.error("Error communicating with OpenAI:", error.response ? error.response.data : error.message);
     return NextResponse.json({ error: 'Error communicating with OpenAI' }, { status: 500 });
+
   }
 }
