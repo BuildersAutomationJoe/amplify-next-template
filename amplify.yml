@@ -8,7 +8,7 @@ backend:
     preBuild:
       commands:
         - rm -rf node_modules
-        -npm install
+        - npm install
 frontend:
   phases:
     build:
