@@ -13,10 +13,10 @@ export async function POST(req) {
   }
 
   // Debugging log to confirm API key is loaded (Do NOT log actual API key for security reasons)
-  if (!process.env.OPENAI_API_KEY) {
-    console.error("API key is missing.");
-    return NextResponse.json({ error: 'API key is missing' }, { status: 401 });
-  }
+  //if (!process.env.OPENAI_API_KEY) {
+   // console.error("API key is missing.");
+  //  return NextResponse.json({ error: 'API key is missing' }, { status: 401 });
+ // }
 
   try {
     const openaiResponse = await axios.post(
